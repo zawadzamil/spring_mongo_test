@@ -34,15 +34,14 @@ public class BlogCategoryService {
     }
 
     public BlogCategory update(String id,BlogCategory category){
-        BlogCategory oldBlogCategory = blogCategoryRepository.findById(id).map(item->{
+
+        return blogCategoryRepository.findById(id).map(item->{
             item.setName(category.getName());
             item.setSlug(category.getSlug());
             item.setUpdatedAt(LocalDateTime.now());
 
             return blogCategoryRepository.save(item);
         }).orElseThrow(()->new ResourceNotFoundException("Blog category not found"));
-
-        return oldBlogCategory;
 
     }
 

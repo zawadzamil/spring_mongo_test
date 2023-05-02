@@ -18,49 +18,43 @@ public class JobController {
     private JobService jobService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> create (@RequestBody JobDTO jobDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
-                "message", "Job created successfully",
-                "data", jobService.create(jobDTO)
-        ));
+    public ResponseEntity<?> create(@RequestBody JobDTO jobDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(jobService.create(jobDTO));
     }
 
     @GetMapping("/list")
-    public ResponseEntity<?> getAll(@RequestParam(value = "id", defaultValue = "0")String id,
-                                    @RequestParam(value = "page", defaultValue ="0")int page,
-                                    @RequestParam(value = "size", defaultValue = "10")int size){
+    public ResponseEntity<?> getAll(@RequestParam(value = "id", defaultValue = "0") String id,
+                                    @RequestParam(value = "page", defaultValue = "0") int page,
+                                    @RequestParam(value = "size", defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        return ResponseEntity.status(HttpStatus.OK).body(jobService.getAll(id, pageRequest,false));
+        return ResponseEntity.status(HttpStatus.OK).body(jobService.getAll(id, pageRequest, false));
     }
 
     @GetMapping("/private")
-    public ResponseEntity<?> getAllPrivate(@RequestParam(value = "id", defaultValue = "0")String id,
-                                           @RequestParam(value = "page", defaultValue ="0")int page,
-                                           @RequestParam(value = "size", defaultValue = "10")int size){
+    public ResponseEntity<?> getAllPrivate(@RequestParam(value = "id", defaultValue = "0") String id,
+                                           @RequestParam(value = "page", defaultValue = "0") int page,
+                                           @RequestParam(value = "size", defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
-        return ResponseEntity.status(HttpStatus.OK).body(jobService.getAll(id, pageRequest,true));
+        return ResponseEntity.status(HttpStatus.OK).body(jobService.getAll(id, pageRequest, true));
     }
 
     @PutMapping("/")
-    public ResponseEntity<?> update (@RequestParam("id") String id, @RequestBody() Job job){
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message", "Job updated successfully.",
-                "data", jobService.update(id, job)
-        ));
+    public ResponseEntity<?> update(@RequestParam("id") String id, @RequestBody() Job job) {
+        return ResponseEntity.status(HttpStatus.OK).body(jobService.update(id, job));
 
     }
 
     @PutMapping("/active")
-    public ResponseEntity<?> activate(@RequestParam("id") String id){
+    public ResponseEntity<?> activate(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message", jobService.activation(id, true)
         ));
     }
 
     @PutMapping("/deactive")
-    public ResponseEntity<?> deactivate(@RequestParam("id") String id){
+    public ResponseEntity<?> deactivate(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message", jobService.activation(id, false)
         ));

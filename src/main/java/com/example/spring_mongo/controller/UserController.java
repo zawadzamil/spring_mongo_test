@@ -22,10 +22,7 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createUser(@RequestBody @Valid UserDTO userDTO) {
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message", "User created successfully",
-                "data", userService.crate(userDTO)
-        ));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.crate(userDTO));
     }
 
     @GetMapping("/list")
@@ -35,22 +32,17 @@ public class UserController {
     }
 
     @PutMapping("/update/profile")
-    public ResponseEntity<?> updateProfile(@RequestParam("id") String id, @RequestBody User user){
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message", "Profile updated successfully.",
-                "data", userService.update(id, user)
-        ));
+    public ResponseEntity<?> updateProfile(@RequestParam("id") String id, @RequestBody User user) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.update(id, user));
     }
 
     @PutMapping("/update/password")
-    public ResponseEntity<?> updatePassword(@RequestParam("id") String id, @RequestBody UserPasswordDTO userPasswordDTO){
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message", "Password successfully.",
-                "data", userService.updatePassword(id, userPasswordDTO)
-        ));
+    public ResponseEntity<?> updatePassword(@RequestParam("id") String id, @RequestBody UserPasswordDTO userPasswordDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updatePassword(id, userPasswordDTO));
     }
+
     @DeleteMapping("/")
-    public ResponseEntity<?> delete (@RequestParam("id") String id) {
+    public ResponseEntity<?> delete(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message", userService.delete(id)
         ));

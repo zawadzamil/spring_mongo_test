@@ -21,10 +21,7 @@ public class LeaveController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody @Valid LeaveDTO leaveDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
-                "message", "Leave application created successfully.",
-                "data", leaveService.create(leaveDTO)
-        ));
+        return ResponseEntity.status(HttpStatus.CREATED).body(leaveService.create(leaveDTO));
     }
 
     @GetMapping("/list")
@@ -39,55 +36,52 @@ public class LeaveController {
     @PostMapping("/recommend")
     public ResponseEntity<?> recommend(@RequestParam(value = "id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message",leaveService.action(id, LeaveStatus.RECOMMENDED)
+                "message", leaveService.action(id, LeaveStatus.RECOMMENDED)
         ));
     }
 
     @PostMapping("/not-recommend")
     public ResponseEntity<?> notRecommend(@RequestParam(value = "id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message",leaveService.action(id, LeaveStatus.NOT_RECOMMENDED)
+                "message", leaveService.action(id, LeaveStatus.NOT_RECOMMENDED)
         ));
     }
 
     @PostMapping("/approve")
     public ResponseEntity<?> approve(@RequestParam(value = "id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message",leaveService.action(id, LeaveStatus.APPROVED)
+                "message", leaveService.action(id, LeaveStatus.APPROVED)
         ));
     }
 
     @PostMapping("/disapprove")
     public ResponseEntity<?> disapprove(@RequestParam(value = "id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message",leaveService.action(id, LeaveStatus.DISAPPROVED)
+                "message", leaveService.action(id, LeaveStatus.DISAPPROVED)
         ));
     }
 
     @PostMapping("/cancel")
     public ResponseEntity<?> cancel(@RequestParam(value = "id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message",leaveService.action(id, LeaveStatus.CANCELLED)
+                "message", leaveService.action(id, LeaveStatus.CANCELLED)
         ));
     }
 
     @PutMapping("/")
-    public ResponseEntity<?> update(@RequestParam(value = "id") String id, @RequestBody Leave leave){
+    public ResponseEntity<?> update(@RequestParam(value = "id") String id, @RequestBody Leave leave) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message","Leave application updated successfully",
-                "data", leaveService.update(id,leave)
+                "message", "Leave application updated successfully",
+                "data", leaveService.update(id, leave)
         ));
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<?> delete(@RequestParam(value = "id")String id){
+    public ResponseEntity<?> delete(@RequestParam(value = "id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message",leaveService.delete(id)
+                "message", leaveService.delete(id)
         ));
     }
-
-
-
 
 
 }

@@ -19,10 +19,7 @@ public class JobCategoryController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody JobCategoryDTO jobCategoryDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
-                "message", "Job category created successfully.",
-                "data", jobCategoryService.create(jobCategoryDTO)
-        ));
+        return ResponseEntity.status(HttpStatus.CREATED).body(jobCategoryService.create(jobCategoryDTO));
     }
 
     @GetMapping("/list")
@@ -35,15 +32,15 @@ public class JobCategoryController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<?> update(@RequestParam("id") String id, @RequestBody JobCategory jobCategory){
+    public ResponseEntity<?> update(@RequestParam("id") String id, @RequestBody JobCategory jobCategory) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message","Job Category updated successfully.",
-                "data",jobCategoryService.update(id, jobCategory)
+                "message", "Job Category updated successfully.",
+                "data", jobCategoryService.update(id, jobCategory)
         ));
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<?>  delete(@RequestParam("id") String id){
+    public ResponseEntity<?> delete(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message", jobCategoryService.delete(id)
         ));

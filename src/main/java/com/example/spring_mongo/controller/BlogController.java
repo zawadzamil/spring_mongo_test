@@ -20,10 +20,7 @@ public class BlogController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody BlogDTO blogDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
-                "message" , "Blog created successfully.",
-                "data",blogService.create(blogDTO)
-        ));
+        return ResponseEntity.status(HttpStatus.CREATED).body(blogService.create(blogDTO));
     }
 
     @GetMapping("/list")
@@ -37,45 +34,42 @@ public class BlogController {
 
     @GetMapping("/private")
     public ResponseEntity<?> getAllPrivate(@RequestParam(value = "id", defaultValue = "0") String id,
-                                    @RequestParam(value = "page", defaultValue = "0") int page,
-                                    @RequestParam(value = "size", defaultValue = "10") int size) {
+                                           @RequestParam(value = "page", defaultValue = "0") int page,
+                                           @RequestParam(value = "size", defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         return ResponseEntity.status(HttpStatus.OK).body(blogService.getAllPrivate(id, pageRequest));
     }
 
     @GetMapping("/info")
-    public ResponseEntity<?> getInfo(@RequestParam("id") String id){
+    public ResponseEntity<?> getInfo(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "data",blogService.getInfo(id)
+                "data", blogService.getInfo(id)
         ));
     }
 
     @PutMapping("/")
     public ResponseEntity<?> update(@RequestParam("id") String id, @RequestBody Blog blog) {
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message", "Blog updated successfully.",
-                "data", blogService.update(id, blog)
-        ));
+        return ResponseEntity.status(HttpStatus.OK).body(blogService.update(id, blog));
 
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<?> delete (@RequestParam("id") String id){
+    public ResponseEntity<?> delete(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message", blogService.delete(id)
         ));
     }
 
     @PutMapping("/publish")
-    public ResponseEntity<?> publish (@RequestParam("id") String id){
+    public ResponseEntity<?> publish(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message", blogService.publish(id, StatusEnum.PUBLISHED)
         ));
     }
 
     @PutMapping("/unpublish")
-    public ResponseEntity<?> unpublish (@RequestParam("id") String id){
+    public ResponseEntity<?> unpublish(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
                 "message", blogService.publish(id, StatusEnum.UNPUBLISHED)
         ));

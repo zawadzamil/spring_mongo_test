@@ -18,39 +18,33 @@ public class RoleController {
     private RoleService roleService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> create (@RequestBody RoleDTO roleDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(Map.of(
-                "message","Role created successfully.",
-                "data", roleService.create(roleDTO)
-        ));
+    public ResponseEntity<?> create(@RequestBody RoleDTO roleDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(roleService.create(roleDTO));
     }
 
     @GetMapping("/list")
-    public ResponseEntity<?> getAll (@RequestParam(value = "id", defaultValue = "0") String id,
-                                     @RequestParam(value = "page", defaultValue = "0") int page,
-                                     @RequestParam(value = "size" , defaultValue = "10") int size){
+    public ResponseEntity<?> getAll(@RequestParam(value = "id", defaultValue = "0") String id,
+                                    @RequestParam(value = "page", defaultValue = "0") int page,
+                                    @RequestParam(value = "size", defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         return ResponseEntity.status(HttpStatus.OK).body(roleService.getAll(pageRequest));
     }
 
     @GetMapping("/")
-    public ResponseEntity<?> getOne(@RequestParam("id") String id ){
+    public ResponseEntity<?> getOne(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(roleService.getOne(id));
     }
 
     @PutMapping("/")
-    public ResponseEntity<?> update(@RequestParam("id") String id, @RequestBody Role role){
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message","Role updated successfully.",
-                "data",roleService.update(id,role)
-        ));
+    public ResponseEntity<?> update(@RequestParam("id") String id, @RequestBody Role role) {
+        return ResponseEntity.status(HttpStatus.OK).body(roleService.update(id, role));
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<?> delete(@RequestParam("id") String id){
+    public ResponseEntity<?> delete(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message",roleService.delete(id)
+                "message", roleService.delete(id)
         ));
     }
 }

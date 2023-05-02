@@ -19,33 +19,27 @@ public class BlogCategoryController {
     private BlogCategoryService blogCategoryService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody @Valid BlogCategoryDTO blogCategoryDTO){
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message", "Blog category created successfully.",
-                "data", blogCategoryService.create(blogCategoryDTO)
-        ));
+    public ResponseEntity<?> create(@RequestBody @Valid BlogCategoryDTO blogCategoryDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(blogCategoryService.create(blogCategoryDTO));
     }
 
     @GetMapping("/list")
-    public ResponseEntity<?> getAll (@RequestParam(value = "id", defaultValue = "0") String id,
-                                     @RequestParam(value = "page" , defaultValue = "0") int page,
-                                     @RequestParam(value = "size", defaultValue = "10") int size){
+    public ResponseEntity<?> getAll(@RequestParam(value = "id", defaultValue = "0") String id,
+                                    @RequestParam(value = "page", defaultValue = "0") int page,
+                                    @RequestParam(value = "size", defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return ResponseEntity.status(HttpStatus.OK).body(blogCategoryService.getAll(id, pageRequest));
     }
 
     @PutMapping("/")
-    public ResponseEntity<?> update(String id, @RequestBody @Valid BlogCategory blogCategory){
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message" , "Blog Category updated successfully",
-                "data", blogCategoryService.update(id, blogCategory)
-        ));
+    public ResponseEntity<?> update(String id, @RequestBody @Valid BlogCategory blogCategory) {
+        return ResponseEntity.status(HttpStatus.OK).body(blogCategoryService.update(id, blogCategory));
     }
 
     @DeleteMapping("/")
-    public ResponseEntity<?> delete(@RequestParam("id") String id){
+    public ResponseEntity<?> delete(@RequestParam("id") String id) {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of(
-                "message" , blogCategoryService.delete(id)
+                "message", blogCategoryService.delete(id)
         ));
     }
 
