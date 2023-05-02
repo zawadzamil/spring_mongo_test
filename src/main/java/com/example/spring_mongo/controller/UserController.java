@@ -2,7 +2,6 @@ package com.example.spring_mongo.controller;
 
 import com.example.spring_mongo.dto.UserDTO;
 import com.example.spring_mongo.dto.UserPasswordDTO;
-import com.example.spring_mongo.exceptions.ResourceNotFoundException;
 import com.example.spring_mongo.model.User;
 import com.example.spring_mongo.service.UserService;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,7 @@ public class UserController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<?> findAll(@RequestParam(value = "id", defaultValue = "0") String id, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
+    public ResponseEntity<?> findAll(@RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "size", defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(page, size);
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAll(pageRequest));
     }
@@ -47,5 +46,4 @@ public class UserController {
                 "message", userService.delete(id)
         ));
     }
-
 }

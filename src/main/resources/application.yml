@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      username: Admin
+      password: deadman007
+      port:  27017
+      database: zaag_java
+      host: localhost
+  profiles:
+    active: prod
